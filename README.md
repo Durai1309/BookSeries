@@ -1,1 +1,1 @@
-# BookSeries
+BookSeries project using .NET Core, MVC, Clean Architecture, SQL Server, Entity Framework Core, Repository Design Pattern, Dependency Injection, and implementing SOLID principles for maintainable and scalable code.
