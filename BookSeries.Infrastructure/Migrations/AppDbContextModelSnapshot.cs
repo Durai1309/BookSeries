@@ -72,7 +72,7 @@ namespace BookSeries.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("BookSeries");
+                    b.ToTable("BookCollections");
                 });
 
             modelBuilder.Entity("BookSeries.Domain.Entities.Book", b =>

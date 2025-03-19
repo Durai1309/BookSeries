@@ -9,7 +9,7 @@ namespace BookSeries.Infrastructure.Data
         {
         }
 
-        public DbSet<BookCollection> BookSeries { get; set; }
+        public DbSet<BookCollection> BookCollections { get; set; }
         public DbSet<Book> Books { get; set; }
 
      
