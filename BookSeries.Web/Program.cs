@@ -1,4 +1,6 @@
+using BookSeries.Application.Services.Interface;
 using BookSeries.Infrastructure.Data;
+using BookSeries.Infrastructure.Repository;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -7,7 +9,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-
+builder.Services.AddScoped<IBookRepository, BookRepository>();
+builder.Services.AddScoped<IBookCollectionRepository, BookCollectionRepository>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

@@ -10,7 +10,7 @@ namespace BookSeries.Infrastructure.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "BookSeries",
+                name: "BookCollections",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -21,7 +21,7 @@ namespace BookSeries.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_BookSeries", x => x.Id);
+                    table.PrimaryKey("PK_BookCollections", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -39,9 +39,9 @@ namespace BookSeries.Infrastructure.Migrations
                 {
                     table.PrimaryKey("PK_Books", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Books_BookSeries_BookSeriesId",
+                        name: "FK_Books_BookCollections_BookSeriesId",
                         column: x => x.BookSeriesId,
-                        principalTable: "BookSeries",
+                        principalTable: "BookCollections",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -58,7 +58,7 @@ namespace BookSeries.Infrastructure.Migrations
                 name: "Books");
 
             migrationBuilder.DropTable(
-                name: "BookSeries");
+                name: "BookCollections");
         }
     }
 }

@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BookSeries.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250318175545_Book")]
+    [Migration("20250318180950_Book")]
     partial class Book
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -74,7 +74,7 @@ namespace BookSeries.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("BookSeries");
+                    b.ToTable("BookCollections");
                 });
 
             modelBuilder.Entity("BookSeries.Domain.Entities.Book", b =>

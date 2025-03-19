@@ -10,4 +10,8 @@
     <ProjectReference Include="..\BookSeries.Domain\BookSeries.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Services\Implementation\" />
+  </ItemGroup>
+
 </Project>
