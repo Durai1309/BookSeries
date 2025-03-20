@@ -29,6 +29,33 @@ namespace BookSeries.Web.Controllers
         {
             if (book != null)
             {
+                if (book.Image != null)
+                {
+
+                    string fileName = book.Id + Path.GetExtension(book.Image.FileName);
+                    string filePath = @"wwwroot\ProductImages\" + fileName;
+
+                    //I have added the if condition to remove the any image with same name if that exist in the folder by any change
+                    var directoryLocation = Path.Combine(Directory.GetCurrentDirectory(), filePath);
+                    FileInfo file = new FileInfo(directoryLocation);
+                    if (file.Exists)
+                    {
+                        file.Delete();
+                    }
+
+                    var filePathDirectory = Path.Combine(Directory.GetCurrentDirectory(), filePath);
+                    using (var fileStream = new FileStream(filePathDirectory, FileMode.Create))
+                    {
+                        book.Image.CopyTo(fileStream);
+                    }
+                    var baseUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host.Value}{HttpContext.Request.PathBase.Value}";
+                    book.ImageUrl = baseUrl + "/ProductImages/" + fileName;
+                    book.ImageLocalPath = filePath;
+                }
+                else
+                {
+                    book.ImageUrl = "https://placehold.co/600x400";
+                }
                 await _bookService.AddBookAsync(book);
                 return RedirectToAction(nameof(Index));
             }
