@@ -1,0 +1,16 @@
+﻿@model BookSeries.Domain.Entities.BookCollection
+
+
+@{
+    ViewData["Title"] = "Book Collection Details";
+}
+
+<h1>@Model.Title</h1>
+
+<div>
+    <p><strong>Description:</strong> @Model.Description</p>
+    <p><strong>Created Date:</strong> @Model.CreatedDate</p>
+</div>
+
+<a href="@Url.Action("Edit", "BookCollection", new { id = Model.Id })" class="btn btn-warning">Edit</a>
+<a href="@Url.Action("Index", "BookCollection")" class="btn btn-secondary">Back to List</a>

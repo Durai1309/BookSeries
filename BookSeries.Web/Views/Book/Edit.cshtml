@@ -1,0 +1,38 @@
+﻿@model  BookSeries.Domain.Entities.Book
+
+@{
+    ViewData["Title"] = "Edit Book";
+}
+
+<h1>Edit Book</h1>
+
+<form asp-action="Edit" method="post">
+    <div class="form-group">
+        <label asp-for="Title"></label>
+        <input asp-for="Title" class="form-control" />
+        <span asp-validation-for="Title" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Author"></label>
+        <input asp-for="Author" class="form-control" />
+        <span asp-validation-for="Author" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="BookSeriesId"></label>
+        <select asp-for="BookSeriesId" class="form-control">
+            <option value="">Select Series</option>
+            @foreach (var series in ViewData["BookSeries"] as List<BookSeries.Domain.Entities.BookCollection>)
+            {
+                <option value="@series.Id" selected="@((Model.BookSeriesId == series.Id) ? "selected" : "")">@series.Title</option>
+            }
+        </select>
+        <span asp-validation-for="BookSeriesId" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Order"></label>
+        <input asp-for="Order" class="form-control" />
+        <span asp-validation-for="Order" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Save</button>
+    <a href="@Url.Action("Index", "Book")" class="btn btn-secondary">Cancel</a>
+</form>

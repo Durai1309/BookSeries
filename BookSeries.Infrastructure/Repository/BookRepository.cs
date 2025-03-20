@@ -1,6 +1,7 @@
 ﻿using BookSeries.Application.Services.Interface;
 using BookSeries.Domain.Entities;
 using BookSeries.Infrastructure.Data;
+using BookSeries.Infrastructure.Migrations;
 using Microsoft.EntityFrameworkCore;
 
 namespace BookSeries.Infrastructure.Repository
@@ -14,12 +15,12 @@ namespace BookSeries.Infrastructure.Repository
             _context = context;
         }
 
-        public async Task<Book> GetByIdAsync(int id)
+        public async Task<Domain.Entities.Book> GetByIdAsync(int id)
         {
             return await _context.Books.Include(b => b.BookSeries).FirstOrDefaultAsync(b => b.Id == id);
         }
 
-        public async Task<List<Book>> GetByBookCollectionIdAsync(int bookCollectionId)
+        public async Task<List<Domain.Entities.Book>> GetByBookCollectionIdAsync(int bookCollectionId)
         {
             return await _context.Books
                                  .Where(b => b.BookSeriesId == bookCollectionId)
@@ -27,13 +28,13 @@ namespace BookSeries.Infrastructure.Repository
                                  .ToListAsync();
         }
 
-        public async Task AddAsync(Book book)
+        public async Task AddAsync(Domain.Entities.Book book)
         {
             await _context.Books.AddAsync(book);
             await _context.SaveChangesAsync();
         }
 
-        public async Task UpdateAsync(Book book)
+        public async Task UpdateAsync(Domain.Entities.Book book)
         {
             _context.Books.Update(book);
             await _context.SaveChangesAsync();
@@ -47,6 +48,11 @@ namespace BookSeries.Infrastructure.Repository
                 _context.Books.Remove(book);
                 await _context.SaveChangesAsync();
             }
+        }
+
+        public async Task<List<Domain.Entities.Book>> GetAllAsync()
+        {
+            return await _context.Books.ToListAsync(); 
         }
     }
 
