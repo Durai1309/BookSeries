@@ -36,5 +36,10 @@ namespace BookSeries.Application.Services.Implementation
         {
             await _bookRepository.DeleteAsync(id);
         }
+
+        public async Task<List<Book>> GetAllBooksAsync()
+        {
+            return await _bookRepository.GetAllAsync();  
+        }
     }
 }

@@ -1,0 +1,39 @@
+﻿@model IEnumerable<BookSeries.Domain.Entities.Book>
+
+@{
+    ViewData["Title"] = "Books";
+}
+
+<h1>Books</h1>
+
+<p>
+    <a href="@Url.Action("Create", "Book")" class="btn btn-primary">Create New Book</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Series</th>
+            <th>Order</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var book in Model)
+        {
+            <tr>
+                <td>@book.Title</td>
+                <td>@book.Author</td>
+                <td>@book.BookSeries?.Title</td>
+                <td>@book.Order</td>
+                <td>
+                    <a href="@Url.Action("Details", "Book", new { id = book.Id })" class="btn btn-info">Details</a>
+                    <a href="@Url.Action("Edit", "Book", new { id = book.Id })" class="btn btn-warning">Edit</a>
+                    <a href="@Url.Action("Delete", "Book", new { id = book.Id })" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
