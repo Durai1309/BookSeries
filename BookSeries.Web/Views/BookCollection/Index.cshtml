@@ -27,7 +27,6 @@
                 <td>@collection.Description</td>
                 <td>@collection.CreatedDate</td>
                 <td>
-                    <a href="@Url.Action("Details", "BookCollection", new { id = collection.Id })" class="btn btn-info">Details</a>
                     <a href="@Url.Action("Edit", "BookCollection", new { id = collection.Id })" class="btn btn-warning">Edit</a>
                     <a href="@Url.Action("Delete", "BookCollection", new { id = collection.Id })" class="btn btn-danger">Delete</a>
                 </td>

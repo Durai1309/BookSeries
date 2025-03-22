@@ -83,47 +83,55 @@ namespace BookSeries.Web.Controllers
 
         public async Task<IActionResult> Edit(int id)
         {
-            var book = await _bookService.GetBooksByCollectionIdAsync(id);
+            var book = await _bookService.GetByAsync(id);
             if (book == null)
             {
                 return NotFound();
             }
-            return View(book); 
+
+            var bookSeriesList = await _bookCollectionService.GetAllBookCollectionsAsync();
+            ViewData["BookSeries"] = bookSeriesList;
+
+            return View(book);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id,Book book)
+        public async Task<IActionResult> Edit(int id, Book book)
         {
             if (id != book.Id)
             {
                 return BadRequest();
             }
 
-            if (ModelState.IsValid)
+            if (id != null)
             {
                 await _bookService.UpdateBookAsync(book);
                 return RedirectToAction(nameof(Index), new { bookCollectionId = book.BookSeriesId });
             }
-            return View(book); 
+
+            var bookSeriesList = await _bookCollectionService.GetAllBookCollectionsAsync();
+            ViewData["BookSeries"] = bookSeriesList;
+
+            return View(book);
         }
 
         public async Task<IActionResult> Delete(int id)
         {
-            var book = await _bookService.GetBooksByCollectionIdAsync(id);
+            var book = await _bookService.GetByAsync(id);
             if (book == null)
             {
                 return NotFound();
             }
-            return View(book); 
+            return View(book);
         }
 
-        [HttpPost, ActionName("Delete")]
+        [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             await _bookService.DeleteBookAsync(id);
-            return RedirectToAction(nameof(Index)); 
+            return RedirectToAction(nameof(Index));
         }
     }
 }

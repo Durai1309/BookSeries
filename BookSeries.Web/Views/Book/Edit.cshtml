@@ -23,9 +23,16 @@
         <label asp-for="BookSeriesId"></label>
         <select asp-for="BookSeriesId" class="form-control">
             <option value="">Select Series</option>
-            @foreach (var series in ViewData["BookSeries"] as List<BookSeries.Domain.Entities.BookCollection>)
+            @if (ViewData["BookSeries"] != null)
             {
-                <option value="@series.Id" selected="@((Model.BookSeriesId == series.Id) ? "selected" : "")">@series.Title</option>
+                @foreach (var series in ViewData["BookSeries"] as List<BookSeries.Domain.Entities.BookCollection>)
+                {
+                    <option value="@series.Id">@series.Title</option>
+                }
+            }
+            else
+            {
+                <option value="">No Series Available</option>
             }
         </select>
         <span asp-validation-for="BookSeriesId" class="text-danger"></span>
@@ -56,10 +63,12 @@
         <span asp-validation-for="ImageUrl" class="text-danger"></span>
     </div>
 
-    <div class="form-group">
-        <label asp-for="ImageLocalPath"></label>
-        <input asp-for="ImageLocalPath" class="form-control" />
-        <span asp-validation-for="ImageLocalPath" class="text-danger"></span>
+    <div class="col-12 mb-4">
+        <label for="ImageUrl" class="form-label h6">Image URL</label>
+        <input asp-for="Image" class="form-control" />
+        <input asp-for="ImageUrl" hidden class="form-control" />
+        <input asp-for="ImageLocalPath" hidden class="form-control" />
+        <span asp-validation-for="Image" class="text-danger"></span>
     </div>
 
     <button type="submit" class="btn btn-primary">Save</button>

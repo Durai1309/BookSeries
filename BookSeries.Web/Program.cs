@@ -2,6 +2,7 @@ using BookSeries.Application.Services.Implementation;
 using BookSeries.Application.Services.Interface;
 using BookSeries.Infrastructure.Data;
 using BookSeries.Infrastructure.Repository;
+using BookSeries.Web.Middleware;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -23,6 +24,7 @@ if (!app.Environment.IsDevelopment())
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
+app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();

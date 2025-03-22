@@ -65,7 +65,7 @@ namespace BookSeries.Web.Controllers
                 return BadRequest();
             }
 
-            if (ModelState.IsValid)
+            if (id != null)
             {
                 await _bookCollectionService.UpdateBookCollectionAsync(bookCollection);
                 return RedirectToAction(nameof(Index));
@@ -83,7 +83,7 @@ namespace BookSeries.Web.Controllers
             return View(bookCollection);
         }
 
-        [HttpPost, ActionName("Delete")]
+        [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
