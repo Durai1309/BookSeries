@@ -15,7 +15,6 @@
         <tr>
             <th>Title</th>
             <th>Author</th>
-            <th>Series</th>
             <th>Order</th>
             <th>Price</th> 
             <th>Description</th> 
@@ -29,13 +28,11 @@
             <tr>
                 <td>@book.Title</td>
                 <td>@book.Author</td>
-                <td>@book.BookSeries?.Title</td>
                 <td>@book.Order</td>
                 <td>@book.Price</td> 
                 <td>@book.Description</td> 
                 <td>@book.ImageUrl</td>
                 <td>
-                    <a href="@Url.Action("Details", "Book", new { id = book.Id })" class="btn btn-info">Details</a>
                     <a href="@Url.Action("Edit", "Book", new { id = book.Id })" class="btn btn-warning">Edit</a>
                     <a href="@Url.Action("Delete", "Book", new { id = book.Id })" class="btn btn-danger">Delete</a>
                 </td>

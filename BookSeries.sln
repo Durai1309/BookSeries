@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34723.18
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookSeries.Domain", "BookSeries.Domain\BookSeries.Domain.csproj", "{7A394CC3-D7D2-4871-8882-6088EE9B1BAD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookSeries.Domain", "BookSeries.Domain\BookSeries.Domain.csproj", "{7A394CC3-D7D2-4871-8882-6088EE9B1BAD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookSeries.Application", "BookSeries.Application\BookSeries.Application.csproj", "{F9367DD3-D9E0-4CF8-8A85-C5BE27270A3D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookSeries.Application", "BookSeries.Application\BookSeries.Application.csproj", "{F9367DD3-D9E0-4CF8-8A85-C5BE27270A3D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookSeries.Infrastructure", "BookSeries.Infrastructure\BookSeries.Infrastructure.csproj", "{EB10BA87-A59C-4997-B1AD-084407BEFE00}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookSeries.Infrastructure", "BookSeries.Infrastructure\BookSeries.Infrastructure.csproj", "{EB10BA87-A59C-4997-B1AD-084407BEFE00}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookSeries.Web", "BookSeries.Web\BookSeries.Web.csproj", "{D183E929-B273-4147-BC5D-DF518DC2D5E1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookSeries.Web", "BookSeries.Web\BookSeries.Web.csproj", "{D183E929-B273-4147-BC5D-DF518DC2D5E1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

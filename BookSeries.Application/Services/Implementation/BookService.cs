@@ -22,6 +22,11 @@ namespace BookSeries.Application.Services.Implementation
             return await _bookRepository.GetByBookCollectionIdAsync(collectionId);
         }
 
+        public async Task<Book> GetByAsync(int collectionId)
+        {
+            return await _bookRepository.GetByIdAsync(collectionId);
+        }
+
         public async Task AddBookAsync(Book book)
         {
             await _bookRepository.AddAsync(book);
