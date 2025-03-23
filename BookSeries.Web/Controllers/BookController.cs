@@ -15,7 +15,7 @@ namespace BookSeries.Web.Controllers
             _bookCollectionService = bookCollectionService;
         }
 
-        public async Task<IActionResult> Create()
+        public async Task<IActionResult> CreateBook()
         {
             var bookSeriesList = await _bookCollectionService.GetAllBookCollectionsAsync();
             ViewData["BookSeries"] = bookSeriesList;
@@ -25,30 +25,29 @@ namespace BookSeries.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Book book)
+        public async Task<IActionResult> CreateBook(Book book)
         {
             if (book != null)
             {
                 if (book.Image != null)
                 {
+                    string fileExtension = Path.GetExtension(book.Image.FileName).ToLower();
+                    string fileName = Guid.NewGuid() + fileExtension;
+                    string filePath = Path.Combine("wwwroot", "ProductImages", fileName);
 
-                    string fileName = book.Id + Path.GetExtension(book.Image.FileName);
-                    string filePath = @"wwwroot\ProductImages\" + fileName;
-
-                    //I have added the if condition to remove the any image with same name if that exist in the folder by any change
-                    var directoryLocation = Path.Combine(Directory.GetCurrentDirectory(), filePath);
-                    FileInfo file = new FileInfo(directoryLocation);
-                    if (file.Exists)
+                    string directoryPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "ProductImages");
+                    if (!Directory.Exists(directoryPath))
                     {
-                        file.Delete();
+                        Directory.CreateDirectory(directoryPath);
                     }
 
                     var filePathDirectory = Path.Combine(Directory.GetCurrentDirectory(), filePath);
                     using (var fileStream = new FileStream(filePathDirectory, FileMode.Create))
                     {
-                        book.Image.CopyTo(fileStream);
+                        await book.Image.CopyToAsync(fileStream);
                     }
-                    var baseUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host.Value}{HttpContext.Request.PathBase.Value}";
+
+                    var baseUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}{HttpContext.Request.PathBase}";
                     book.ImageUrl = baseUrl + "/ProductImages/" + fileName;
                     book.ImageLocalPath = filePath;
                 }
@@ -56,16 +55,19 @@ namespace BookSeries.Web.Controllers
                 {
                     book.ImageUrl = "https://placehold.co/600x400";
                 }
+
                 await _bookService.AddBookAsync(book);
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(BookIndex));
             }
 
-            var bookSeriesList = await _bookCollectionService.GetAllBookCollectionsAsync();
-            ViewData["BookSeries"] = bookSeriesList;
+            var bookSeriesListForError = await _bookCollectionService.GetAllBookCollectionsAsync();
+            ViewData["BookSeries"] = bookSeriesListForError;
 
             return View(book);
         }
-        public async Task<IActionResult> Index()
+
+
+        public async Task<IActionResult> BookIndex()
         {
             var books = await _bookService.GetAllBooksAsync(); 
             return View(books);
@@ -81,7 +83,7 @@ namespace BookSeries.Web.Controllers
             return View(book); 
         }
 
-        public async Task<IActionResult> Edit(int id)
+        public async Task<IActionResult> EditBook(int id)
         {
             var book = await _bookService.GetByAsync(id);
             if (book == null)
@@ -97,7 +99,7 @@ namespace BookSeries.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, Book book)
+        public async Task<IActionResult> EditBook(int id, Book book)
         {
             if (id != book.Id)
             {
@@ -107,7 +109,7 @@ namespace BookSeries.Web.Controllers
             if (id != null)
             {
                 await _bookService.UpdateBookAsync(book);
-                return RedirectToAction(nameof(Index), new { bookCollectionId = book.BookSeriesId });
+                return RedirectToAction(nameof(BookIndex), new { bookCollectionId = book.BookSeriesId });
             }
 
             var bookSeriesList = await _bookCollectionService.GetAllBookCollectionsAsync();
@@ -116,7 +118,7 @@ namespace BookSeries.Web.Controllers
             return View(book);
         }
 
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> DeleteBook(int id)
         {
             var book = await _bookService.GetByAsync(id);
             if (book == null)
@@ -131,7 +133,7 @@ namespace BookSeries.Web.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             await _bookService.DeleteBookAsync(id);
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(BookIndex));
         }
     }
 }
