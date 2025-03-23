@@ -1,0 +1,86 @@
+﻿@model BookSeries.Domain.Entities.Book
+
+<form asp-action="CreateBook" method="post" enctype="multipart/form-data">
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-6 col-md-8 col-12">
+                <div class="card shadow-lg border-light">
+                    <div class="card-header bg-primary text-white text-center">
+                        <h5 class="m-0" style="font-size: 1.5rem;">Create Book</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-12 mb-4">
+                                <label asp-for="Title" class="form-label h6">Book Title</label>
+                                <input asp-for="Title" class="form-control form-control-lg" required />
+                                <span asp-validation-for="Title" class="text-danger"></span>
+                            </div>
+
+                            <div class="col-12 mb-4">
+                                <label asp-for="Author" class="form-label h6">Author</label>
+                                <input asp-for="Author" class="form-control form-control-lg" required />
+                                <span asp-validation-for="Author" class="text-danger"></span>
+                            </div>
+
+                            <div class="col-12 mb-4">
+                                <label asp-for="BookSeriesId" class="form-label h6">Book Series</label>
+                                <select asp-for="BookSeriesId" class="form-control form-control-lg">
+                                    @if (ViewData["BookSeries"] != null)
+                                    {
+                                        var bookSeries = ViewData["BookSeries"] as List<BookSeries.Domain.Entities.BookCollection>;
+                                        if (bookSeries != null && bookSeries.Any())
+                                        {
+                                            foreach (var series in bookSeries)
+                                            {
+                                                <option value="@series.Id">@series.Title</option>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <option>No book series available</option>
+                                        }
+                                    }
+                                </select>
+                                <span asp-validation-for="BookSeriesId" class="text-danger"></span>
+                            </div>
+
+                            <div class="col-12 mb-4">
+                                <label asp-for="Order" class="form-label h6">Order</label>
+                                <input asp-for="Order" class="form-control form-control-lg" />
+                                <span asp-validation-for="Order" class="text-danger"></span>
+                            </div>
+
+                            <div class="col-12 mb-4">
+                                <label asp-for="Price" class="form-label h6">Price</label>
+                                <input asp-for="Price" class="form-control form-control-lg" type="number" step="0.01" required />
+                                <span asp-validation-for="Price" class="text-danger"></span>
+                            </div>
+
+                            <div class="col-12 mb-4">
+                                <label asp-for="Description" class="form-label h6">Description</label>
+                                <textarea asp-for="Description" class="form-control form-control-lg" rows="4" required></textarea>
+                                <span asp-validation-for="Description" class="text-danger"></span>
+                            </div>
+
+                            <div class="col-12 mb-4">
+                                <label for="Image" class="form-label h6">Image Upload</label>
+                                <input asp-for="Image" class="form-control" type="file" />
+                                <span asp-validation-for="Image" class="text-danger"></span>
+                            </div>
+
+                            <div class="col-12 d-flex justify-content-between mt-4">
+                                <a href="@Url.Action("BookIndex", "Book")" class="btn btn-outline-primary btn-md">Cancel</a>
+                                <button type="submit" class="btn btn-outline-primary btn-md">Create Book</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+
