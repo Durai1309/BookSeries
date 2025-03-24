@@ -13,7 +13,7 @@ namespace BookSeries.Web.Controllers
             _bookCollectionService = bookCollectionService;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> IndexBookCollections()
         {
             var bookCollections = await _bookCollectionService.GetAllBookCollectionsAsync();
             return View(bookCollections);
@@ -29,14 +29,14 @@ namespace BookSeries.Web.Controllers
             return View(bookCollection);
         }
 
-        public IActionResult Create()
+        public IActionResult CreateBookCollection()
         {
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(BookCollection bookCollection)
+        public async Task<IActionResult> CreateBookCollection(BookCollection bookCollection)
         {
             if (bookCollection != null)
             {
@@ -46,7 +46,7 @@ namespace BookSeries.Web.Controllers
                 return View(bookCollection);
         }
 
-        public async Task<IActionResult> Edit(int id)
+        public async Task<IActionResult> EditBookCollection(int id)
         {
             var bookCollection = await _bookCollectionService.GetBookCollectionByIdAsync(id);
             if (bookCollection == null)
@@ -58,7 +58,7 @@ namespace BookSeries.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, BookCollection bookCollection)
+        public async Task<IActionResult> EditBookCollection(int id, BookCollection bookCollection)
         {
             if (id != bookCollection.Id)
             {
@@ -73,7 +73,7 @@ namespace BookSeries.Web.Controllers
             return View(bookCollection);
         }
 
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> DeleteBookCollection(int id)
         {
             var bookCollection = await _bookCollectionService.GetBookCollectionByIdAsync(id);
             if (bookCollection == null)

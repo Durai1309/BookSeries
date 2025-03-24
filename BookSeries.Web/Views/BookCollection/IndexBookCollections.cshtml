@@ -7,7 +7,7 @@
 <h1>Book Collections</h1>
 
 <p>
-    <a href="@Url.Action("Create", "BookCollection")" class="btn btn-primary">Create New Collection</a>
+    <a href="@Url.Action("CreateBookCollection", "BookCollection")" class="btn btn-primary">Create New Collection</a>
 </p>
 
 <table class="table">
@@ -27,8 +27,8 @@
                 <td>@collection.Description</td>
                 <td>@collection.CreatedDate</td>
                 <td>
-                    <a href="@Url.Action("Edit", "BookCollection", new { id = collection.Id })" class="btn btn-warning">Edit</a>
-                    <a href="@Url.Action("Delete", "BookCollection", new { id = collection.Id })" class="btn btn-danger">Delete</a>
+                    <a href="@Url.Action("EditBookCollection", "BookCollection", new { id = collection.Id })" class="btn btn-warning">Edit</a>
+                    <a href="@Url.Action("DeleteBookCollection", "BookCollection", new { id = collection.Id })" class="btn btn-danger">Delete</a>
                 </td>
             </tr>
         }

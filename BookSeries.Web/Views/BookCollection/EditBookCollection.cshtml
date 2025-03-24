@@ -1,12 +1,12 @@
 ﻿@model BookSeries.Domain.Entities.BookCollection
 
 @{
-    ViewData["Title"] = "Create Book Collection";
+    ViewData["Title"] = "Edit Book Collection";
 }
 
-<h1>Create New Book Collection</h1>
+<h1>Edit Book Collection</h1>
 
-<form asp-action="Create" method="post">
+<form asp-action="Edit" method="post">
     <div class="form-group">
         <label asp-for="Title"></label>
         <input asp-for="Title" class="form-control" />
@@ -17,6 +17,6 @@
         <input asp-for="Description" class="form-control" />
         <span asp-validation-for="Description" class="text-danger"></span>
     </div>
-    <button type="submit" class="btn btn-primary">Create</button>
-    <a href="@Url.Action("Index", "BookCollection")" class="btn btn-secondary">Cancel</a>
+    <button type="submit" class="btn btn-primary">Save</button>
+    <a href="@Url.Action("IndexBookCollections", "BookCollection")" class="btn btn-secondary">Cancel</a>
 </form>

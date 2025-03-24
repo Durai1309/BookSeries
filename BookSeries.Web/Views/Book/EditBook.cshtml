@@ -57,16 +57,20 @@
     </div>
 
     <div class="form-group">
-        <label asp-for="ImageUrl"></label>
-        <input asp-for="ImageUrl" class="form-control" />
-        <span asp-validation-for="ImageUrl" class="text-danger"></span>
+        <label for="Image" class="form-label h6">Current Image</label>
+        @if (!string.IsNullOrEmpty(Model.ImageUrl) && Model.ImageUrl != "https://placehold.co/600x400")
+        {
+            <img src="@Model.ImageUrl" alt="Book Image" class="img-fluid" style="max-width: 200px; max-height: 200px;" />
+        }
+        else
+        {
+            <p>No image available</p>
+        }
     </div>
 
-    <div class="col-12 mb-4">
-        <label for="ImageUrl" class="form-label h6">Image URL</label>
-        <input asp-for="Image" class="form-control" />
-        <input asp-for="ImageUrl" hidden class="form-control" />
-        <input asp-for="ImageLocalPath" hidden class="form-control" />
+    <div class="form-group">
+        <label for="Image" class="form-label h6">Upload New Image (Optional)</label>
+        <input asp-for="Image" class="form-control" type="file" />
         <span asp-validation-for="Image" class="text-danger"></span>
     </div>
 
