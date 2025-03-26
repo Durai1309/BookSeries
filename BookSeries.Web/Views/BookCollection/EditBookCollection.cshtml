@@ -1,22 +1,44 @@
 ﻿@model BookSeries.Domain.Entities.BookCollection
 
-@{
-    ViewData["Title"] = "Edit Book Collection";
-}
 
-<h1>Edit Book Collection</h1>
+<form asp-action="EditBookCollection" method="post" enctype="multipart/form-data">
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 col-md-10 col-12">
+                <div class="card shadow-lg border-light">
+                    <div class="card-header bg-primary text-white text-center">
+                        <h5 class="m-0" style="font-size: 1.5rem;">Edit Book Collection</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="row">
+                                    <div class="col-12 mb-4">
+                                        <label for="Title" class="form-label h6">Collection Title</label>
+                                        <input asp-for="Title" id="Title" class="form-control form-control-lg" required />
+                                        <span asp-validation-for="Title" class="text-danger"></span>
+                                    </div>
 
-<form asp-action="EditBookCollection" method="post">
-    <div class="form-group">
-        <label asp-for="Title"></label>
-        <input asp-for="Title" class="form-control" />
-        <span asp-validation-for="Title" class="text-danger"></span>
+                                    <div class="col-12 mb-4">
+                                        <label for="Description" class="form-label h6">Collection Description</label>
+                                        <textarea asp-for="Description" id="Description" class="form-control form-control-lg" rows="4" required></textarea>
+                                        <span asp-validation-for="Description" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="col-12 d-flex justify-content-between mt-4">
+                                        <a asp-action="IndexBookCollections" class="btn btn-outline-primary btn-md">Cancel</a>
+                                        <button type="submit" class="btn btn-outline-primary btn-md">Update</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="form-group">
-        <label asp-for="Description"></label>
-        <input asp-for="Description" class="form-control" />
-        <span asp-validation-for="Description" class="text-danger"></span>
-    </div>
-    <button type="submit" class="btn btn-primary">Save</button>
-    <a href="@Url.Action("IndexBookCollections", "BookCollection")" class="btn btn-secondary">Cancel</a>
 </form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
