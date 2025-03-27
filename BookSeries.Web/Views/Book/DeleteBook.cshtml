@@ -1,28 +1,64 @@
 ﻿@model BookSeries.Domain.Entities.Book
 
-@{
-    ViewData["Title"] = "Delete Book";
-}
+<form asp-action="DeleteConfirmed">
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-6 col-md-8 col-12">
+                <div class="card shadow-lg border-light">
+                    <div class="card-header bg-danger text-white text-center">
+                        <h5 class="m-0" style="font-size: 1.5rem;">Delete Book</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <input hidden asp-for="Id" />
 
-<h1>Are you sure you want to delete this book?</h1>
+                            <div class="col-12 mb-4">
+                                <label for="Title" class="form-label h6">Book Title</label>
+                                <input asp-for="Title" id="Title" class="form-control form-control-lg" disabled />
+                            </div>
 
-<div>
-    <p><strong>Title:</strong> @Model.Title</p>
-    <p><strong>Author:</strong> @Model.Author</p>
-    <p><strong>Series:</strong> @Model.BookSeries?.Title</p>
-    <p><strong>Order:</strong> @Model.Order</p>
-    <p><strong>Price:</strong> @Model.Price</p>
-    <p><strong>Description:</strong> @Model.Description</p>
-    <p><strong>Image URL:</strong> @Model.ImageUrl</p>
-    <p><strong>Image Local Path:</strong> @Model.ImageLocalPath</p>
-</div>
+                            <div class="col-12 mb-4">
+                                <label for="Author" class="form-label h6">Author</label>
+                                <input asp-for="Author" id="Author" class="form-control form-control-lg" disabled />
+                            </div>
 
-<form asp-action="DeleteConfirmed" method="post">
-    <input type="hidden" asp-for="Id" />
-    @Html.AntiForgeryToken()
-    <button type="submit" class="btn btn-danger">Delete</button>
-    <a href="@Url.Action("BookIndex", "Book")" class="btn btn-secondary">Cancel</a>
+                            <div class="col-12 mb-4">
+                                <label for="BookSeries" class="form-label h6">Series</label>
+                                <input asp-for="BookSeries.Title" id="BookSeries" class="form-control form-control-lg" disabled />
+                            </div>
+
+                            <div class="col-12 mb-4">
+                                <label for="Order" class="form-label h6">Order</label>
+                                <input asp-for="Order" id="Order" class="form-control form-control-lg" disabled />
+                            </div>
+
+                            <div class="col-12 mb-4">
+                                <label for="Price" class="form-label h6">Price</label>
+                                <input asp-for="Price" id="Price" type="number" class="form-control form-control-lg" disabled />
+                            </div>
+
+                            <div class="col-12 mb-4">
+                                <label for="Description" class="form-label h6">Description</label>
+                                <textarea asp-for="Description" id="Description" class="form-control form-control-lg" rows="4" disabled></textarea>
+                            </div>
+
+                            <div class="col-12 mb-4">
+                                <label for="ImageUrl" class="form-label h6">Image URL</label>
+                                <input asp-for="ImageUrl" id="ImageUrl" class="form-control form-control-lg" disabled />
+                            </div>
+
+                            <div class="col-12 d-flex justify-content-between mt-4">
+                                <a href="@Url.Action("BookIndex", "Book")" class="btn btn-outline-primary btn-md">Back to List</a>
+                                <button type="submit" class="btn btn-outline-danger btn-md">Delete Book</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </form>
 
-
-
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

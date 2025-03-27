@@ -41,7 +41,7 @@ namespace BookSeries.Web.Controllers
             if (bookCollection != null)
             {
                 await _bookCollectionService.AddBookCollectionAsync(bookCollection);
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(IndexBookCollections));
             }
                 return View(bookCollection);
         }
@@ -68,7 +68,7 @@ namespace BookSeries.Web.Controllers
             if (id != null)
             {
                 await _bookCollectionService.UpdateBookCollectionAsync(bookCollection);
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(IndexBookCollections));
             }
             return View(bookCollection);
         }
@@ -88,7 +88,7 @@ namespace BookSeries.Web.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             await _bookCollectionService.DeleteBookCollectionAsync(id);
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(IndexBookCollections));
         }
     }
 }

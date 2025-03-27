@@ -4,76 +4,106 @@
     ViewData["Title"] = "Edit Book";
 }
 
-<h1>Edit Book</h1>
+<form asp-action="EditBook" method="post" enctype="multipart/form-data">
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 col-md-10 col-12">
+                <div class="card shadow-lg border-light">
+                    <div class="card-header bg-primary text-white text-center">
+                        <h5 class="m-0" style="font-size: 1.5rem;">Edit Book</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <!-- Hidden Id for Editing -->
+                            <input hidden asp-for="Id" />
 
-<form asp-action="EditBook" method="post">
-    <div class="form-group">
-        <label asp-for="Title"></label>
-        <input asp-for="Title" class="form-control" />
-        <span asp-validation-for="Title" class="text-danger"></span>
+                            <div class="col-12 mb-4">
+                                <label asp-for="Title" class="form-label h6">Book Title</label>
+                                <input asp-for="Title" class="form-control form-control-lg" required />
+                                <span asp-validation-for="Title" class="text-danger"></span>
+                            </div>
+
+                            <div class="col-12 mb-4">
+                                <label asp-for="Author" class="form-label h6">Author</label>
+                                <input asp-for="Author" class="form-control form-control-lg" required />
+                                <span asp-validation-for="Author" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="BookSeriesId"></label>
+                                <select asp-for="BookSeriesId" class="form-control">
+                                    <option value="">Select Series</option>
+                                    @if (ViewData["BookSeries"] != null)
+                                    {
+                                        @foreach (var series in ViewData["BookSeries"] as List<BookSeries.Domain.Entities.BookCollection>)
+                                        {
+                                            <option value="@series.Id">@series.Title</option>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <option value="">No Series Available</option>
+                                    }
+                                </select>
+                                <span asp-validation-for="BookSeriesId" class="text-danger"></span>
+                            </div>
+
+                            <div class="col-12 mb-4">
+                                <label asp-for="Order" class="form-label h6">Order</label>
+                                <input asp-for="Order" class="form-control form-control-lg" />
+                                <span asp-validation-for="Order" class="text-danger"></span>
+                            </div>
+
+                            <div class="col-12 mb-4">
+                                <label asp-for="Price" class="form-label h6">Price</label>
+                                <input asp-for="Price" type="number" class="form-control form-control-lg" step="0.01" required />
+                                <span asp-validation-for="Price" class="text-danger"></span>
+                            </div>
+
+                            <div class="col-12 mb-4">
+                                <label asp-for="Description" class="form-label h6">Description</label>
+                                <textarea asp-for="Description" class="form-control form-control-lg" rows="4" required></textarea>
+                                <span asp-validation-for="Description" class="text-danger"></span>
+                            </div>
+
+                            <div class="col-12 mb-4">
+                                <label for="Image" class="form-label h6">Current Image</label>
+
+                                <div class="card">
+                                    <div class="card-body text-center">
+                                        @if (!string.IsNullOrEmpty(Model.ImageUrl) && Model.ImageUrl != "https://placehold.co/600x400")
+                                        {
+                                            <img src="@Model.ImageUrl" alt="Book Image" class="img-fluid rounded" style="max-width: 200px; max-height: 200px;" />
+                                        }
+                                        else
+                                        {
+                                            <p class="text-muted">No image available</p>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="col-12 mb-4">
+                                <label for="Image" class="form-label h6">Upload New Image</label>
+                                <input asp-for="Image" type="file" class="form-control" />
+                                <input asp-for="ImageUrl" hidden class="form-control" />
+                                <input asp-for="ImageLocalPath" hidden class="form-control" />
+                                <span asp-validation-for="Image" class="text-danger"></span>
+                            </div>
+
+                            <div class="col-12 d-flex justify-content-between mt-4">
+                                <a href="@Url.Action("BookIndex", "Book")" class="btn btn-outline-primary btn-md">Cancel</a>
+                                <button type="submit" class="btn btn-outline-primary btn-md">Update</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-
-    <div class="form-group">
-        <label asp-for="Author"></label>
-        <input asp-for="Author" class="form-control" />
-        <span asp-validation-for="Author" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="BookSeriesId"></label>
-        <select asp-for="BookSeriesId" class="form-control">
-            <option value="">Select Series</option>
-            @if (ViewData["BookSeries"] != null)
-            {
-                @foreach (var series in ViewData["BookSeries"] as List<BookSeries.Domain.Entities.BookCollection>)
-                {
-                    <option value="@series.Id">@series.Title</option>
-                }
-            }
-            else
-            {
-                <option value="">No Series Available</option>
-            }
-        </select>
-        <span asp-validation-for="BookSeriesId" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="Order"></label>
-        <input asp-for="Order" class="form-control" />
-        <span asp-validation-for="Order" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="Price"></label>
-        <input asp-for="Price" class="form-control" type="number" step="0.01" />
-        <span asp-validation-for="Price" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="Description"></label>
-        <textarea asp-for="Description" class="form-control"></textarea>
-        <span asp-validation-for="Description" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <label for="Image" class="form-label h6">Current Image</label>
-        @if (!string.IsNullOrEmpty(Model.ImageUrl) && Model.ImageUrl != "https://placehold.co/600x400")
-        {
-            <img src="@Model.ImageUrl" alt="Book Image" class="img-fluid" style="max-width: 200px; max-height: 200px;" />
-        }
-        else
-        {
-            <p>No image available</p>
-        }
-    </div>
-
-    <div class="form-group">
-        <label for="Image" class="form-label h6">Upload New Image (Optional)</label>
-        <input asp-for="Image" class="form-control" type="file" />
-        <span asp-validation-for="Image" class="text-danger"></span>
-    </div>
-
-    <button type="submit" class="btn btn-primary">Save</button>
-    <a href="@Url.Action("BookIndex", "Book")" class="btn btn-secondary">Cancel</a>
 </form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
