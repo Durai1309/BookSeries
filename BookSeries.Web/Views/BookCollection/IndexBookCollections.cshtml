@@ -1,7 +1,6 @@
 ﻿@model IEnumerable<BookSeries.Domain.Entities.BookCollection>
 
 
-
 <div class="card-body p-4">
     <div class="table-responsive shadow rounded border border-4">
         <table class="table table-hover table-bordered mb-0">
@@ -41,11 +40,11 @@
                             <td>@collection.Description</td>
                             <td>@collection.CreatedDate</td>
                             <td>
-                                <a class="btn btn-sm btn-outline-primary" asp-action="EditBookCollection" asp-route-id="@collection.Id" title="Edit" aria-label="Edit @collection.Title">
+                                <a class="btn btn-sm btn-outline-primary" asp-action="EditBookCollection" asp-route-id="@collection.Id" title="EditBookCollection" aria-label="EditBookCollection @collection.Title">
                                     <i class="bi bi-pencil"></i>
                                 </a>
 
-                                <a class="btn btn-sm btn-outline-danger" asp-action="DeleteBookCollection" asp-route-id="@collection.Id" title="Delete" aria-label="Delete @collection.Title">
+                                <a class="btn btn-sm btn-outline-danger" asp-action="DeleteBookCollection" asp-route-id="@collection.Id" title="DeleteBookCollection" aria-label="EditBookCollection @collection.Title">
                                     <i class="bi bi-trash"></i>
                                 </a>
                             </td>

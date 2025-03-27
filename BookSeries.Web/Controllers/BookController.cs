@@ -7,7 +7,7 @@ namespace BookSeries.Web.Controllers
     public class BookController : Controller
     {
         private readonly BookService _bookService;
-        private readonly BookCollectionService _bookCollectionService; 
+        private readonly BookCollectionService _bookCollectionService;
 
         public BookController(BookService bookService, BookCollectionService bookCollectionService)
         {
@@ -69,7 +69,7 @@ namespace BookSeries.Web.Controllers
 
         public async Task<IActionResult> BookIndex()
         {
-            var books = await _bookService.GetAllBooksAsync(); 
+            var books = await _bookService.GetAllBooksAsync();
             return View(books);
         }
 
@@ -80,7 +80,7 @@ namespace BookSeries.Web.Controllers
             {
                 return NotFound();
             }
-            return View(book); 
+            return View(book);
         }
 
         public async Task<IActionResult> EditBook(int id)
@@ -108,6 +108,29 @@ namespace BookSeries.Web.Controllers
 
             if (id != null)
             {
+                if (book.Image != null)
+                {
+                    if (!string.IsNullOrEmpty(book.ImageLocalPath))
+                    {
+                        var oldFilePathDirectory = Path.Combine(Directory.GetCurrentDirectory(), book.ImageLocalPath);
+                        FileInfo file = new FileInfo(oldFilePathDirectory);
+                        if (file.Exists)
+                        {
+                            file.Delete();
+                        }
+                    }
+
+                    string fileName = book.Id + Path.GetExtension(book.Image.FileName);
+                    string filePath = @"wwwroot\ProductImages\" + fileName;
+                    var filePathDirectory = Path.Combine(Directory.GetCurrentDirectory(), filePath);
+                    using (var fileStream = new FileStream(filePathDirectory, FileMode.Create))
+                    {
+                        book.Image.CopyTo(fileStream);
+                    }
+                    var baseUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host.Value}{HttpContext.Request.PathBase.Value}";
+                    book.ImageUrl = baseUrl + "/ProductImages/" + fileName;
+                    book.ImageLocalPath = filePath;
+                }
                 await _bookService.UpdateBookAsync(book);
                 return RedirectToAction(nameof(BookIndex), new { bookCollectionId = book.BookSeriesId });
             }
@@ -124,6 +147,16 @@ namespace BookSeries.Web.Controllers
             if (book == null)
             {
                 return NotFound();
+            }
+
+            if (!string.IsNullOrEmpty(book.ImageLocalPath))
+            {
+                var oldFilePathDirectory = Path.Combine(Directory.GetCurrentDirectory(), book.ImageLocalPath);
+                FileInfo file = new FileInfo(oldFilePathDirectory);
+                if (file.Exists)
+                {
+                    file.Delete();
+                }
             }
             return View(book);
         }
