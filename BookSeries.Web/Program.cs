@@ -3,6 +3,11 @@ using BookSeries.Application.Services.Interface;
 using BookSeries.Infrastructure.Data;
 using BookSeries.Infrastructure.Repository;
 using BookSeries.Web.Middleware;
+using BookSeries.Web.Service.IService;
+using BookSeries.Web.Service;
+using BookSeries.Web.Utility;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,6 +20,27 @@ builder.Services.AddScoped<IBookRepository, BookRepository>();
 builder.Services.AddScoped<IBookCollectionRepository, BookCollectionRepository>();
 builder.Services.AddScoped<BookService>();
 builder.Services.AddScoped<BookCollectionService>();
+builder.Services.AddControllersWithViews();
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddHttpClient();
+builder.Services.AddHttpClient<IAuthService, AuthService>();
+
+// Add services to the container.
+builder.Services.AddControllersWithViews();
+SD.AuthAPIBase = builder.Configuration["ServiceUrls:AuthAPI"];
+
+builder.Services.AddScoped<IBaseService, BaseService>();
+builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<ITokenProvider, TokenProvider>();
+
+
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.ExpireTimeSpan = TimeSpan.FromHours(10);
+        options.LoginPath = "/Auth/Login";
+        options.AccessDeniedPath = "/Auth/AccessDenied";
+    });
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
