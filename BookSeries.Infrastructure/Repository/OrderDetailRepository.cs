@@ -23,10 +23,12 @@ namespace BookSeries.Infrastructure.Repository
             throw new NotImplementedException();
         }
 
-        public async Task<List<Book>> GetByBooKIdAsync(int bookId)
+        public async Task<Book> GetByBookIdAsync(int bookId)
         {
-            return await _context.Books.Where(b => b.Id == bookId).ToListAsync();
+            return await _context.Books
+                                 .FirstOrDefaultAsync(b => b.Id == bookId);
         }
+
 
         public Task UpdateOrderStatus(int bookId, string newStatus)
         {

@@ -15,7 +15,7 @@
             {
                 await _next(context);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 context.Response.Redirect("/Home/Error");
                 return;

@@ -10,7 +10,7 @@ namespace BookSeries.Application.Services.Interface
     public interface IOrderDetailRepository
     {
         Task AddAsync(OrderDetails orderDetails);
-        Task<List<Book>> GetByBooKIdAsync(int bookId);
+        Task<Book> GetByBookIdAsync(int bookId);
         Task<List<Book>> GetAllAsync();
         Task UpdateOrderStatus(int bookId , string newStatus);
     }

@@ -1,0 +1,45 @@
+﻿@model BookSeries.Domain.Entities.Book
+
+<form method="post" asp-action="Checkout" asp-controller="Order">
+    <input type="hidden" asp-for="Id" />
+    <input type="hidden" asp-for="Price" />
+
+    <div class="py-3">
+        <div class="card container w-75 shadow-lg" style="border: 1px solid #ccc; border-radius: 10px;">
+            <div class="card-header bg-primary text-white row align-items-center" style="border-radius: 10px 10px 0 0; padding: 0.75rem;">
+                <div class="col-12 col-md-6">
+                    <h4 class="mb-0">@Model.Title</h4>
+                </div>
+                <div class="col-12 col-md-6 text-end">
+                    <h6 class="text-white mb-0">@string.Format("{0:c}", Model.Price)</h6>
+                </div>
+            </div>
+            <div class="card-body" style="padding: 0.75rem;">
+                <div class="container-fluid">
+                    <div class="row gy-1">
+                        <div class="col-12 col-md-5 text-center">
+                            <img src="@Model.ImageUrl" style="border-radius: 10px; object-fit: cover; height: 150px; width: 100%;" class="img-fluid" alt="@Model.Title" />
+                        </div>
+                        <div class="col-12 col-md-7">
+                            <div>
+                                <p class="text-secondary mt-1 small">@Html.Raw(Model.Description)</p>
+                            </div>
+                            <div class="mb-1">
+                                <label asp-for="Count" class="form-label xsmall">Quantity:</label>
+                                <input asp-for="Count" class="form-control form-control-sm" type="number" min="1" value="1" />
+                                <span asp-validation-for="Count" class="text-danger xsmall"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer bg-light d-grid gap-1 d-md-flex justify-content-md-end" style="border-radius: 0 0 10px 10px; padding: 0.75rem;">
+                <button type="submit" class="btn btn-outline-primary btn-md">Checkout</button>
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

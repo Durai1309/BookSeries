@@ -3,8 +3,15 @@ using BookSeries.Domain.Entities;
 
 namespace BookSeries.Application.Services.Implementation
 {
-    public class OrderDetailService : IOrderDetailRepository
+    public class OrderDetailService 
     {
+        private readonly IOrderDetailRepository _orderDetailRepository;
+
+        public OrderDetailService(IOrderDetailRepository orderDetailRepository)
+        {
+            _orderDetailRepository = orderDetailRepository;
+        }
+
         public Task AddAsync(OrderDetails orderDetails)
         {
             throw new NotImplementedException();
@@ -15,10 +22,12 @@ namespace BookSeries.Application.Services.Implementation
             throw new NotImplementedException();
         }
 
-        public Task<List<Book>> GetByBooKIdAsync(int bookId)
+        public async Task<Book> GetByBookIdAsync(int bookId)
         {
-            throw new NotImplementedException();
+            var book = await _orderDetailRepository.GetByBookIdAsync(bookId);
+            return book;
         }
+
 
         public Task UpdateOrderStatus(int bookId, string newStatus)
         {

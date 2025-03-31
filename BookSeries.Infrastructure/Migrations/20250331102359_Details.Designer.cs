@@ -4,6 +4,7 @@ using BookSeries.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BookSeries.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250331102359_Details")]
+    partial class Details
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -50,6 +52,9 @@ namespace BookSeries.Infrastructure.Migrations
                     b.Property<int>("Order")
                         .HasColumnType("int");
 
+                    b.Property<int?>("OrderDetailsId")
+                        .HasColumnType("int");
+
                     b.Property<double>("Price")
                         .HasColumnType("float");
 
@@ -60,6 +65,8 @@ namespace BookSeries.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("BookSeriesId");
+
+                    b.HasIndex("OrderDetailsId");
 
                     b.ToTable("Books");
                 });
@@ -96,9 +103,6 @@ namespace BookSeries.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("BookId")
-                        .HasColumnType("int");
-
                     b.Property<int>("Count")
                         .HasColumnType("int");
 
@@ -128,8 +132,6 @@ namespace BookSeries.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BookId");
-
                     b.ToTable("OrderDetails");
                 });
 
@@ -141,21 +143,19 @@ namespace BookSeries.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("BookSeries.Domain.Entities.OrderDetails", null)
+                        .WithMany("Books")
+                        .HasForeignKey("OrderDetailsId");
+
                     b.Navigation("BookSeries");
                 });
 
-            modelBuilder.Entity("BookSeries.Domain.Entities.OrderDetails", b =>
+            modelBuilder.Entity("BookSeries.Domain.Entities.BookCollection", b =>
                 {
-                    b.HasOne("BookSeries.Domain.Entities.Book", "Book")
-                        .WithMany()
-                        .HasForeignKey("BookId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Book");
+                    b.Navigation("Books");
                 });
 
-            modelBuilder.Entity("BookSeries.Domain.Entities.BookCollection", b =>
+            modelBuilder.Entity("BookSeries.Domain.Entities.OrderDetails", b =>
                 {
                     b.Navigation("Books");
                 });
