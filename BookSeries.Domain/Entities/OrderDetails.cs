@@ -8,7 +8,7 @@ namespace BookSeries.Domain.Entities
 {
     public class OrderDetails
     {
-        public int Id { get; set; }     
+        public int Id { get; set; }
         public string? Name { get; set; }
         public string? Phone { get; set; }
         public string? Email { get; set; }
@@ -16,6 +16,10 @@ namespace BookSeries.Domain.Entities
         public DateTime OrderTime { get; set; }
         public DateTime OrderDate { get; set; } = DateTime.Now;
         public double Price { get; set; }
-        public List<Book> Books { get; set; }
+        public int Count { get; set; }
+        public string? UserId { get; set; }
+        public int BookId { get; set; }
+        public Book Book { get; set; }
     }
+
 }

@@ -25,5 +25,8 @@ namespace BookSeries.Domain.Entities
         [NotMapped]
         public IFormFile? Image { get; set; }
 
+        [NotMapped]
+        public int Count { get; set; }
     }
+
 }

@@ -17,6 +17,11 @@
                             </div>
                             <p class="card-text flex-grow-1">@Html.Raw(book.Description)</p>
                         </div>
+
+                        <div class="mt-auto">
+                            <a asp-action="Detail" asp-controller="Order" asp-route-bookId="@book.Id"
+                               class="btn btn-outline-primary btn-md">Details</a>
+                        </div>
                     </div>
                 </div>
             }
