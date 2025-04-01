@@ -30,7 +30,7 @@ namespace BookSeries.Web.Controllers
 
         public async Task<IActionResult> Checkout(Book bookDetails)
         {
-             return RedirectToAction("Confirmation");
+             return View(bookDetails);
         }
 
         public async Task<IActionResult> Confirmation()
