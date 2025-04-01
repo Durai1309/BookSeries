@@ -1,0 +1,84 @@
+﻿@model BookSeries.Domain.Entities.OrderDetails
+
+<form method="post" asp-action="Checkout" asp-controller="Order">
+    <input type="hidden" asp-for="Id" />
+    <input type="hidden" asp-for="Price" />
+
+    <div class="container mt-5">
+        <div class="card border-0 shadow-lg">
+            <div class="card-header bg-primary text-white py-3 rounded-top">
+                <div class="row align-items-center">
+                    <div class="col-6">
+                        <h4 class="mb-0"><i class="fa fa-book"></i> &nbsp; Book Checkout</h4>
+                    </div>
+                    <div class="col-6 text-end">
+                        <a asp-action="Index" asp-controller="Books" class="btn btn-outline-light btn-sm">Back to Books</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12 col-md-7">
+                        <h5 class="mb-4">Customer Details</h5>
+                        <div class="mb-3">
+                            <input asp-for="Name" placeholder="Full Name" class="form-control form-control-lg" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3">
+                            <input asp-for="Email" placeholder="Email Address" class="form-control form-control-lg" />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3">
+                            <input asp-for="Phone" placeholder="Phone Number" class="form-control form-control-lg" />
+                            <span asp-validation-for="Phone" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-5">
+                        <div class="card border-0 shadow-sm">
+                            <div class="card-body">
+                                <div class="d-none d-lg-block">
+                                    <div class="row text-dark fw-bold">
+                                        <div class="col-6">Book Details</div>
+                                        <div class="col-3">Price</div>
+                                        <div class="col-3">Quantity</div>
+                                    </div>
+                                    <hr />
+                                </div>
+
+                                <div class="row align-items-center mb-3">
+                                    <div class="col-6">
+                                        <span class="d-block fw-medium"></span>
+                                    </div>
+                                    <div class="col-3">
+                                        <span>@Model.Price.ToString("c")</span>
+                                    </div>
+                                    <div class="col-3">
+                                        <input asp-for="Count" class="form-control form-control-sm" type="number" min="1" value="1" />
+                                        <span asp-validation-for="Count" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <hr />
+
+                                <div class="row mt-4">
+                                    <div class="col-12 text-end">
+                                        <h5 class="text-dark">Order Total: @Model.Price.ToString("c")</h5>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card-footer bg-light d-grid gap-1 d-md-flex justify-content-md-end" style="border-radius: 0 0 10px 10px; padding: 0.75rem; margin-top: 20px;">
+                                <button type="submit" class="btn btn-outline-primary btn-md" style="min-width: 100px;">Checkout</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
