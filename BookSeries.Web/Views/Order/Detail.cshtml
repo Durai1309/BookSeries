@@ -1,8 +1,10 @@
 ﻿@model BookSeries.Domain.Entities.Book
 
 <form method="post" asp-action="Checkout" asp-controller="Order">
+    @Html.AntiForgeryToken()
     <input type="hidden" asp-for="Id" />
     <input type="hidden" asp-for="Price" />
+    <input type="hidden" asp-for="Title" />
 
     <div class="py-3">
         <div class="card container w-75 shadow-lg" style="border: 1px solid #ccc; border-radius: 10px;">
