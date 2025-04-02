@@ -23,6 +23,7 @@ namespace BookSeries.Web.Controllers
             return View();
         }
 
+        [Authorize]
         public async Task<IActionResult> Detail(int bookId)
         {
             var book = await _orderDetailService.GetByBookIdAsync(bookId);
@@ -52,17 +53,10 @@ namespace BookSeries.Web.Controllers
         public async Task<IActionResult> Confirmation(OrderDetails orderDetails)
         {
             string userId = User.Claims.Where(u => u.Type == JwtRegisteredClaimNames.Sub)?.FirstOrDefault()?.Value;
-
-            if (!ModelState.IsValid)
-            {
-                return View("Checkout", orderDetails);
-            }
             orderDetails.OrderDate = DateTime.Now;
             orderDetails.Status = "Pending";
             orderDetails.UserId = userId;
-
             await _orderDetailService.AddAsync(orderDetails);
-
             return View();
         }
         public async Task<IActionResult> ApprovedOrder(int orderId)
