@@ -1,8 +1,10 @@
 ﻿@model BookSeries.Domain.Entities.OrderDetails
 
-<form method="post" asp-action="Checkout" asp-controller="Order">
-    <input type="hidden" asp-for="Id" />
+<form method="post" asp-action="Confirmation" asp-controller="Order">
+    @Html.AntiForgeryToken()
+    <input type="hidden" asp-for="BookId" />
     <input type="hidden" asp-for="Price" />
+    <input type="hidden" asp-for="Count" />
 
     <div class="container mt-5">
         <div class="card border-0 shadow-lg">
@@ -40,7 +42,7 @@
                             <div class="card-body">
                                 <div class="d-none d-lg-block">
                                     <div class="row text-dark fw-bold">
-                                        <div class="col-6">Book Details</div>
+                                        <div class="col-6">Book Title</div>
                                         <div class="col-3">Price</div>
                                         <div class="col-3">Quantity</div>
                                     </div>
@@ -49,13 +51,13 @@
 
                                 <div class="row align-items-center mb-3">
                                     <div class="col-6">
-                                        <span class="d-block fw-medium"></span>
+                                        <span class="d-block fw-medium">@Model.Book.Title</span>
                                     </div>
                                     <div class="col-3">
                                         <span>@Model.Price.ToString("c")</span>
                                     </div>
                                     <div class="col-3">
-                                        <input asp-for="Count" class="form-control form-control-sm" type="number" min="1" value="1" />
+                                        <input asp-for="Count" class="form-control form-control-sm" type="number" min="1" value="@Model.Count" />
                                         <span asp-validation-for="Count" class="text-danger"></span>
                                     </div>
                                 </div>
@@ -63,13 +65,13 @@
 
                                 <div class="row mt-4">
                                     <div class="col-12 text-end">
-                                        <h5 class="text-dark">Order Total: @Model.Price.ToString("c")</h5>
+                                        <h5 class="text-dark">Order Total: @((Model.Price * Model.Count).ToString("c"))</h5>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="card-footer bg-light d-grid gap-1 d-md-flex justify-content-md-end" style="border-radius: 0 0 10px 10px; padding: 0.75rem; margin-top: 20px;">
-                                <button type="submit" class="btn btn-outline-primary btn-md" style="min-width: 100px;">Checkout</button>
+                                <button type="submit" class="btn btn-primary btn-md" style="min-width: 100px;">Place Order</button>
                             </div>
                         </div>
                     </div>

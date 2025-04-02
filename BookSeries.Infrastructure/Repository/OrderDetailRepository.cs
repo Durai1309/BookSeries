@@ -1,6 +1,7 @@
 ﻿using BookSeries.Application.Services.Interface;
 using BookSeries.Domain.Entities;
 using BookSeries.Infrastructure.Data;
+using BookSeries.Infrastructure.Migrations;
 using Microsoft.EntityFrameworkCore;
 
 namespace BookSeries.Infrastructure.Repository
@@ -13,17 +14,18 @@ namespace BookSeries.Infrastructure.Repository
         {
             _context = context;
         }
-        public Task AddAsync(OrderDetails orderDetails)
+        public async Task AddAsync(Domain.Entities.OrderDetails orderDetails)
+        {
+            await _context.OrderDetails.AddAsync(orderDetails);
+            await _context.SaveChangesAsync();
+        }
+
+        public Task<List<Domain.Entities.Book>> GetAllAsync()
         {
             throw new NotImplementedException();
         }
 
-        public Task<List<Book>> GetAllAsync()
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task<Book> GetByBookIdAsync(int bookId)
+        public async Task<Domain.Entities.Book> GetByBookIdAsync(int bookId)
         {
             return await _context.Books
                                  .FirstOrDefaultAsync(b => b.Id == bookId);

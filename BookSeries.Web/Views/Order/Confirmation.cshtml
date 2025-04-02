@@ -1,0 +1,23 @@
+﻿@{
+    ViewData["Title"] = "Order Confirmation";
+}
+
+<div class="container mt-5">
+    <div class="card border-0 shadow-lg">
+        <div class="card-header bg-success text-white py-3 rounded-top">
+            <h4 class="mb-0"><i class="fa fa-check-circle"></i> Order Confirmation</h4>
+        </div>
+        <div class="card-body text-center py-5">
+            <i class="fa fa-check-circle text-success" style="font-size: 5rem;"></i>
+            <h2 class="mt-4">Thank You For Your Order!</h2>
+            <p class="lead">Your order has been placed successfully.</p>
+            <p>We've sent a confirmation email with your order details.</p>
+
+            <div class="mt-5">
+                <a asp-action="Index" asp-controller="Books" class="btn btn-primary btn-lg">
+                    Continue Shopping
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

@@ -12,9 +12,9 @@ namespace BookSeries.Application.Services.Implementation
             _orderDetailRepository = orderDetailRepository;
         }
 
-        public Task AddAsync(OrderDetails orderDetails)
+        public async Task AddAsync(OrderDetails orderDetails)
         {
-            throw new NotImplementedException();
+            await _orderDetailRepository.AddAsync(orderDetails);
         }
 
         public Task<List<Book>> GetAllAsync()

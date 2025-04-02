@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace BookSeries.Web.Controllers
 {
@@ -25,16 +26,43 @@ namespace BookSeries.Web.Controllers
         public async Task<IActionResult> Detail(int bookId)
         {
             var book = await _orderDetailService.GetByBookIdAsync(bookId);
-            return View(book); 
+            if (book == null)
+            {
+                return NotFound();
+            }
+            return View(book);
         }
 
+        [HttpPost]
         public async Task<IActionResult> Checkout(Book bookDetails)
         {
-             return View(bookDetails);
+            var orderDetails = new OrderDetails
+            {
+                BookId = bookDetails.Id,
+                Book = bookDetails,
+                Price = bookDetails.Price,
+                Count = bookDetails.Count
+            };
+
+            return View(orderDetails);
         }
 
-        public async Task<IActionResult> Confirmation()
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Confirmation(OrderDetails orderDetails)
         {
+            string userId = User.Claims.Where(u => u.Type == JwtRegisteredClaimNames.Sub)?.FirstOrDefault()?.Value;
+
+            if (!ModelState.IsValid)
+            {
+                return View("Checkout", orderDetails);
+            }
+            orderDetails.OrderDate = DateTime.Now;
+            orderDetails.Status = "Pending";
+            orderDetails.UserId = userId;
+
+            await _orderDetailService.AddAsync(orderDetails);
+
             return View();
         }
         public async Task<IActionResult> ApprovedOrder(int orderId)
