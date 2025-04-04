@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,8 +10,14 @@ namespace BookSeries.Domain.Entities
     public class OrderDetails
     {
         public int Id { get; set; }
+
+        [Required(ErrorMessage = "Name is required.")]
         public string? Name { get; set; }
+
+        [Required(ErrorMessage = "Phone number is required.")]
         public string? Phone { get; set; }
+
+        [Required(ErrorMessage = "Email is required.")]
         public string? Email { get; set; }
         public string? Status { get; set; }
         public DateTime OrderTime { get; set; }
