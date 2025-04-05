@@ -17,9 +17,9 @@ namespace BookSeries.Application.Services.Implementation
             await _orderDetailRepository.AddAsync(orderDetails);
         }
 
-        public Task<List<Book>> GetAllAsync()
+        public async Task<List<OrderDetails>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            return await _orderDetailRepository.GetAllAsync();
         }
 
         public async Task<Book> GetByBookIdAsync(int bookId)

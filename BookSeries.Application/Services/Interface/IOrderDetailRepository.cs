@@ -11,7 +11,7 @@ namespace BookSeries.Application.Services.Interface
     {
         Task AddAsync(OrderDetails orderDetails);
         Task<Book> GetByBookIdAsync(int bookId);
-        Task<List<Book>> GetAllAsync();
+        Task<List<OrderDetails>> GetAllAsync();
         Task UpdateOrderStatus(int bookId , string newStatus);
     }
 }

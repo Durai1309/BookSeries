@@ -20,10 +20,16 @@ namespace BookSeries.Infrastructure.Repository
             await _context.SaveChangesAsync();
         }
 
-        public Task<List<Domain.Entities.Book>> GetAllAsync()
+        public async Task<List<Domain.Entities.OrderDetails>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            var orderDetailsList = await _context.OrderDetails.ToListAsync();
+            if (orderDetailsList == null)
+            {
+                throw new Exception("No order details found.");
+            }
+            return orderDetailsList;
         }
+
 
         public async Task<Domain.Entities.Book> GetByBookIdAsync(int bookId)
         {
