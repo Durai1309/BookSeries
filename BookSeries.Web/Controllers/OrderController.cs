@@ -1,5 +1,6 @@
 ﻿using BookSeries.Application.Services.Implementation;
 using BookSeries.Domain.Entities;
+using BookSeries.Web.Models;
 using BookSeries.Web.Utility;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -18,7 +19,7 @@ namespace BookSeries.Web.Controllers
         {
             _orderDetailService = orderDetailService;
         }
-        public IActionResult Index()
+        public IActionResult OrderIndex()
         {
             return View();
         }
@@ -74,9 +75,10 @@ namespace BookSeries.Web.Controllers
             return View();
         }
 
-        public IActionResult GetAll(string status)
+        public async Task<IActionResult> GetAll()
         {
-            return View();
+            var response = await _orderDetailService.GetAllAsync();
+            return View(response);
         }
     }
 }
