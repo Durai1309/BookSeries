@@ -3,6 +3,7 @@ using BookSeries.Domain.Entities;
 using BookSeries.Infrastructure.Data;
 using BookSeries.Infrastructure.Migrations;
 using Microsoft.EntityFrameworkCore;
+using System.Net;
 
 namespace BookSeries.Infrastructure.Repository
 {
@@ -37,6 +38,10 @@ namespace BookSeries.Infrastructure.Repository
                                  .FirstOrDefaultAsync(b => b.Id == bookId);
         }
 
+        public async Task<Domain.Entities.OrderDetails> GetByOrderIdAsync(int orderId)
+        {
+            return await _context.OrderDetails.FirstOrDefaultAsync(b => b.Id == orderId);
+        }
 
         public Task UpdateOrderStatus(int bookId, string newStatus)
         {
