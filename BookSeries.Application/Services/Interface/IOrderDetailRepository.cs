@@ -13,5 +13,6 @@ namespace BookSeries.Application.Services.Interface
         Task<Book> GetByBookIdAsync(int bookId);
         Task<List<OrderDetails>> GetAllAsync();
         Task UpdateOrderStatus(int bookId , string newStatus);
+        Task<OrderDetails> GetByOrderIdAsync(int orderId);
     }
 }

@@ -28,6 +28,11 @@ namespace BookSeries.Application.Services.Implementation
             return book;
         }
 
+        public async Task<OrderDetails> GetByOrderIdAsync(int orderId)
+        {
+            var order = await _orderDetailRepository.GetByOrderIdAsync(orderId);
+            return order;
+        }
 
         public Task UpdateOrderStatus(int bookId, string newStatus)
         {

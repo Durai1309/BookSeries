@@ -35,6 +35,16 @@ namespace BookSeries.Web.Controllers
             return View(book);
         }
 
+        public async Task<IActionResult> OrderDetail(int orderId)
+        {
+            var order = await _orderDetailService.GetByOrderIdAsync(orderId);
+            if (order == null)
+            {
+                return NotFound();
+            }
+            return View(order);
+        }
+
         [HttpPost]
         public async Task<IActionResult> Checkout(Book bookDetails)
         {
