@@ -84,7 +84,11 @@ namespace BookSeries.Web.Controllers
         {
             return View();
         }
-
+        
+        public async Task<IActionResult> ReadyforPickup(int orderId)
+        {
+            return View();
+        }
         public async Task<IActionResult> GetAll()
         {
             var response = await _orderDetailService.GetAllAsync();
