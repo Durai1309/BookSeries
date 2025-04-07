@@ -1,1 +1,108 @@
-﻿
+﻿@model BookSeries.Web.ViewModels.OrderViewModel
+@using BookSeries.Web.Utility
+
+<form method="post">
+    <input asp-for="Id" hidden />
+
+    <div class="container mt-5">
+        <div class="card border-0 shadow-lg">
+            <div class="card-header bg-primary text-white py-3 rounded-top">
+                <div class="row align-items-center">
+                    <div class="col-6">
+                        <h4 class="mb-0"><i class="fa fa-shopping-cart"></i> &nbsp; Order Summary</h4>
+                    </div>
+                    <div class="col-6 text-end">
+                        <a asp-action="OrderIndex" class="btn btn-outline-light btn-sm">Back to Orders</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12 col-md-7">
+                        <h5 class="mb-4">Customer Details</h5>
+                        <div class="mb-3">
+                            <label class="form-label">Name</label>
+                            <input asp-for="Name" readonly class="form-control form-control-lg" />
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Phone</label>
+                            <input asp-for="Phone" readonly class="form-control form-control-lg" />
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Email</label>
+                            <input asp-for="Email" readonly class="form-control form-control-lg" />
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Order Date</label>
+                            <input value="@Model.OrderTime.ToShortDateString()" readonly class="form-control form-control-lg" />
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Status</label>
+                            <input asp-for="Status" readonly class="form-control form-control-lg" />
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-5">
+                        <div class="card border-0 shadow-sm">
+                            <div class="card-body">
+                                <h5 class="text-dark mb-4">Order Summary</h5>
+                                <div class="row text-dark fw-bold">
+                                    <div class="col-6">Product Details</div>
+                                    <div class="col-3">Price</div>
+                                    <div class="col-3">Quantity</div>
+                                </div>
+                                <hr />
+
+                                @foreach (var item in Model.OrderItems)
+                                {
+                                    <div class="row align-items-center mb-3">
+                                        <div class="col-6">
+                                            <span class="d-block fw-medium">@item.ProductName</span>
+                                        </div>
+                                        <div class="col-3">
+                                            <span>@item.Price.ToString("c")</span>
+                                        </div>
+                                        <div class="col-3">
+                                            <span>@item.Count</span>
+                                        </div>
+                                    </div>
+                                    <hr />
+                                }
+
+                                <div class="row mt-4">
+                                    <div class="col-12 text-end">
+                                        <h5 class="text-dark">Order Total: @Model.OrderTotal.ToString("c")</h5>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card-footer bg-light d-grid gap-1 d-md-flex justify-content-md-end" style="border-radius: 0 0 10px 10px; padding: 0.75rem; margin-top: 20px;">
+                                @if (User.IsInRole(SD.RoleAdmin))
+                                {
+                                    @if (Model.Status == SD.Status_Pending)
+                                    {
+                                        <button asp-action="ApprovedOrder" asp-route-orderId="@Model.Id" type="submit" class="btn btn-outline-primary btn-md">Approved</button>
+                                    }
+                                    @if (Model.Status == SD.Status_Approved)
+                                    {
+                                        <button asp-action="OrderReadyForPickup" asp-route-orderId="@Model.Id" type="submit" class="btn btn-outline-primary btn-sm">Ready for Pickup</button>
+                                    }
+                                    @if (Model.Status == SD.Status_ReadyForPickup)
+                                    {
+                                        <button asp-action="CompleteOrder" asp-route-orderId="@Model.Id" type="submit" class="btn btn-outline-primary btn-sm">Complete Order</button>
+                                    }
+
+                                    @if (Model.Status == SD.Status_Approved || Model.Status == SD.Status_ReadyForPickup)
+                                    {
+                                        <button asp-action="CancelOrder" asp-route-orderId="@Model.Id" type="submit" class="btn btn-outline-primary btn-sm">Cancel Order</button>
+                                    }
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

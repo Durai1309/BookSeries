@@ -33,9 +33,11 @@
                                 <td>@order.Name</td>
                                 <td>@order.Phone</td>
                                 <td>@order.Status</td>
-                                <td>
-                                   
-                                </td>
+                            <td>
+                                <a href="@Url.Action("OrderDetail", "Order", new { orderId = order.Id })" class="btn btn-info btn-sm">
+                                    View Details
+                                </a>
+                            </td>
                             </tr>
                         }
                     </tbody>
