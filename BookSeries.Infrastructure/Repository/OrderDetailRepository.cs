@@ -40,7 +40,7 @@ namespace BookSeries.Infrastructure.Repository
 
         public async Task<Domain.Entities.OrderDetails> GetByOrderIdAsync(int orderId)
         {
-            return await _context.OrderDetails.FirstOrDefaultAsync(b => b.Id == orderId);
+            return await _context.OrderDetails.Include(o => o.Book).FirstOrDefaultAsync(b => b.Id == orderId);
         }
 
         public Task UpdateOrderStatus(int bookId, string newStatus)
