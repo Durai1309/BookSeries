@@ -1,11 +1,7 @@
 ﻿using BookSeries.Application.Services.Implementation;
 using BookSeries.Domain.Entities;
-using BookSeries.Web.Models;
-using BookSeries.Web.Utility;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json;
 using System.IdentityModel.Tokens.Jwt;
 
 namespace BookSeries.Web.Controllers

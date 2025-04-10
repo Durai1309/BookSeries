@@ -1,4 +1,4 @@
-﻿@model BookSeries.Web.ViewModels.OrderViewModel
+﻿@model BookSeries.Domain.Entities.OrderDetails
 @using BookSeries.Web.Utility
 
 <form method="post">
@@ -12,7 +12,7 @@
                         <h4 class="mb-0"><i class="fa fa-shopping-cart"></i> &nbsp; Order Summary</h4>
                     </div>
                     <div class="col-6 text-end">
-                        <a asp-action="OrderIndex" class="btn btn-outline-light btn-sm">Back to Orders</a>
+                        <a asp-action="GetAll" class="btn btn-outline-light btn-sm">Back to Orders</a>
                     </div>
                 </div>
             </div>
@@ -54,25 +54,23 @@
                                 </div>
                                 <hr />
 
-                                @foreach (var item in Model.OrderItems)
-                                {
-                                    <div class="row align-items-center mb-3">
-                                        <div class="col-6">
-                                            <span class="d-block fw-medium">@item.ProductName</span>
-                                        </div>
-                                        <div class="col-3">
-                                            <span>@item.Price.ToString("c")</span>
-                                        </div>
-                                        <div class="col-3">
-                                            <span>@item.Count</span>
-                                        </div>
+                                <div class="row align-items-center mb-3">
+                                    <div class="col-6">
+                                        <span class="d-block fw-medium">@Model.Book.Title</span>
+                                        <small class="text-muted">by @Model.Book.Author</small>
                                     </div>
-                                    <hr />
-                                }
+                                    <div class="col-3">
+                                        <span>@Model.Book.Price.ToString("c")</span>
+                                    </div>
+                                    <div class="col-3">
+                                        <span>@Model.Count</span>
+                                    </div>
+                                </div>
+                                <hr />
 
                                 <div class="row mt-4">
                                     <div class="col-12 text-end">
-                                        <h5 class="text-dark">Order Total: @Model.OrderTotal.ToString("c")</h5>
+                                        <h5 class="text-dark">Order Total: @((Model.Book.Price * Model.Count).ToString("c"))</h5>
                                     </div>
                                 </div>
                             </div>
