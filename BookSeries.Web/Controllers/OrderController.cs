@@ -1,5 +1,6 @@
 ﻿using BookSeries.Application.Services.Implementation;
 using BookSeries.Domain.Entities;
+using BookSeries.Web.Utility;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.IdentityModel.Tokens.Jwt;
@@ -68,22 +69,28 @@ namespace BookSeries.Web.Controllers
         }
         public async Task<IActionResult> ApprovedOrder(int orderId)
         {
-            return View();
+            var success = _orderDetailService.UpdateOrderStatus(orderId, SD.Status_Approved);
+            return View(success);
         }
 
         public async Task<IActionResult> CompleteOrder(int orderId)
         {
-            return View();
+            var success = _orderDetailService.UpdateOrderStatus(orderId, SD.Status_Completed);
+            return View(success);
         }
 
         public async Task<IActionResult> CancelOrder(int orderId)
         {
-            return View();
+
+            var success = _orderDetailService.UpdateOrderStatus(orderId, SD.Status_Cancelled);
+            return View(success);
         }
-        
+
         public async Task<IActionResult> ReadyforPickup(int orderId)
         {
-            return View();
+
+            var success = _orderDetailService.UpdateOrderStatus(orderId, SD.Status_ReadyForPickup);
+            return View(success);
         }
         public async Task<IActionResult> GetAll()
         {

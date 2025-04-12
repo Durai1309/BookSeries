@@ -43,7 +43,7 @@ namespace BookSeries.Infrastructure.Repository
             return await _context.OrderDetails.Include(o => o.Book).FirstOrDefaultAsync(b => b.Id == orderId);
         }
 
-        public Task UpdateOrderStatus(int bookId, string newStatus)
+        public async Task UpdateOrderStatus(int bookId, string newStatus)
         {
             throw new NotImplementedException();
         }
