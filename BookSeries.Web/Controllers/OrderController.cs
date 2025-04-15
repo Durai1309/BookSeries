@@ -69,28 +69,32 @@ namespace BookSeries.Web.Controllers
         }
         public async Task<IActionResult> ApprovedOrder(int orderId)
         {
-            var success = _orderDetailService.UpdateOrderStatus(orderId, SD.Status_Approved);
-            return View(success);
+            await _orderDetailService.UpdateOrderStatus(orderId, SD.Status_Approved);
+
+            TempData["success"] = "Status updated successfully";
+            return RedirectToAction(nameof(OrderDetail), new { orderId = orderId });
         }
 
         public async Task<IActionResult> CompleteOrder(int orderId)
         {
-            var success = _orderDetailService.UpdateOrderStatus(orderId, SD.Status_Completed);
-            return View(success);
-        }
+            await _orderDetailService.UpdateOrderStatus(orderId, SD.Status_Completed);
 
+            TempData["success"] = "Status updated successfully";
+            return RedirectToAction(nameof(OrderDetail), new { orderId = orderId });
+        }
         public async Task<IActionResult> CancelOrder(int orderId)
         {
+            await _orderDetailService.UpdateOrderStatus(orderId, SD.Status_Cancelled);
 
-            var success = _orderDetailService.UpdateOrderStatus(orderId, SD.Status_Cancelled);
-            return View(success);
+            TempData["success"] = "Status updated successfully";
+            return RedirectToAction(nameof(OrderDetail), new { orderId = orderId });
         }
-
         public async Task<IActionResult> ReadyforPickup(int orderId)
         {
+            await _orderDetailService.UpdateOrderStatus(orderId, SD.Status_ReadyForPickup);
 
-            var success = _orderDetailService.UpdateOrderStatus(orderId, SD.Status_ReadyForPickup);
-            return View(success);
+            TempData["success"] = "Status updated successfully";
+            return RedirectToAction(nameof(OrderDetail), new { orderId = orderId });
         }
         public async Task<IActionResult> GetAll()
         {

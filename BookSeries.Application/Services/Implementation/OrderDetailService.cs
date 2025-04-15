@@ -34,9 +34,9 @@ namespace BookSeries.Application.Services.Implementation
             return order;
         }
 
-        public Task UpdateOrderStatus(int bookId, string newStatus)
+        public async Task UpdateOrderStatus(int bookId, string newStatus)
         {
-            throw new NotImplementedException();
+            await _orderDetailRepository.UpdateOrderStatus(bookId, newStatus);
         }
     }
 }
