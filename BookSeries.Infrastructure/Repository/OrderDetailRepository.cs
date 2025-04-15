@@ -45,7 +45,13 @@ namespace BookSeries.Infrastructure.Repository
 
         public async Task UpdateOrderStatus(int bookId, string newStatus)
         {
-            throw new NotImplementedException();
+            var orderDetail = await _context.OrderDetails.FirstOrDefaultAsync(od => od.Id == bookId);
+            if (orderDetail == null)
+            {
+                throw new Exception("Order detail not found.");
+            }
+            orderDetail.Status = newStatus;
+            await _context.SaveChangesAsync();
         }
     }
 }

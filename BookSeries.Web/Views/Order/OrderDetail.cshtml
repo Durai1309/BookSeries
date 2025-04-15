@@ -78,13 +78,13 @@
                             <div class="card-footer bg-light d-grid gap-1 d-md-flex justify-content-md-end" style="border-radius: 0 0 10px 10px; padding: 0.75rem; margin-top: 20px;">
                                 @if (User.IsInRole(SD.RoleAdmin))
                                 {
-                                    @if (Model.Status == SD.Status_Pending)
+                                    @if (Model.Status == SD.Status_Pending || Model.Status == SD.Status_Cancelled)
                                     {
                                         <button asp-action="ApprovedOrder" asp-route-orderId="@Model.Id" type="submit" class="btn btn-outline-primary btn-md">Approved</button>
                                     }
                                     @if (Model.Status == SD.Status_Approved)
                                     {
-                                        <button asp-action="OrderReadyForPickup" asp-route-orderId="@Model.Id" type="submit" class="btn btn-outline-primary btn-sm">Ready for Pickup</button>
+                                        <button asp-action="ReadyforPickup" asp-route-orderId="@Model.Id" type="submit" class="btn btn-outline-primary btn-sm">Ready for Pickup</button>
                                     }
                                     @if (Model.Status == SD.Status_ReadyForPickup)
                                     {
